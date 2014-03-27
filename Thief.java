@@ -3,45 +3,53 @@
  */
 public class Thief extends Person {
 
-
-    public boolean canStealOrNot = true;
-    public int injury = 4;
+    public int injuryUntil = 0;
 
     public Thief(String name) {
         super(name);
     }
 
-    public void setCanStealOrNot(boolean canStealOrNot) {
+    public String steal() {
+        return null;
+    }
+    public boolean canPlay(){
+        return KardemommeTown.day >= this.injuryUntil;
+    }
+    public void setInjury(int days){
+        this.injuryUntil = days + KardemommeTown.day;
+    }
+
+    /*public void setCanStealOrNot(boolean canStealOrNot) {
         this.canStealOrNot = canStealOrNot;
     }
 
     public boolean getCanStealOrNot() {
 
-        if (this.injury != 4) {
-            this.injury -= 1;
-
+        if (this.injury != 0) {
+            this.injury--;
             if (this.injury == 0) {
                 this.injury = 4;
                 canStealOrNot = true;
             }
         }
         return this.canStealOrNot;
-
-    }
+    }*/
 
     public void caughtByCop(Person cop) {
 
-        //while (this.getBelongings().size() != 0){
-            cop.addBelongings(this.steal());
+        while (this.getBelongings().size() != 0) {
+            cop.getBelongings().add(this.steal());
             System.out.println("caught!");
-        //}
-
+        }
         //take all thieves items
         this.getBelongings().clear();
+    }
+    public void steal(Person otherThief){
 
     }
+
     @Override
-    public String toString(){
-        return ("Name: " + this.getName() + "\n can steal?" + this.getCanStealOrNot() + "\n Injury :" + injury + "\n Belongings: " + getBelongings() + "\n");
+    public String toString() {
+        return ("Name: " + this.getName() + "\n Belongings: " + getBelongings() + "\n");
     }
 }

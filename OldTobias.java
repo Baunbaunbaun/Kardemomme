@@ -1,24 +1,20 @@
-import java.util.Random;
+import java.util.Iterator;
 
 public class OldTobias extends Person {
 
 
-    public OldTobias(String name) {
-        super(name);
+    public OldTobias() {
+        super("Old Tobias");
     }
 
-    public String steal() {
+    public void steal(Person thief) {
 
-        String loot = "dust";
-        String[] thingsToSteal = KardemommeTown.pawnbroker.getBoutiquetItems();
+        Iterator<String> iter = this.getBelongings().iterator();
 
-        Random random = new Random();
-
-        while (!this.getBelongings().contains(loot)) {
-            loot = thingsToSteal[random.nextInt(thingsToSteal.length)];
+        if (iter.hasNext()) {
+            String loot = iter.next();
+            getBelongings().remove(loot);
+            thief.getBelongings().add(loot);
         }
-        this.removeBelonging(loot);
-        System.out.println("loot Oldy: " + loot);
-        return loot;
     }
 }

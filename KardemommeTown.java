@@ -1,27 +1,24 @@
-import java.util.HashMap;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class KardemommeTown {
 
-    //empty array of citizens
-    private Person[] citizens;
+    public ArrayList<Person> recidents;
+    public ArrayList<Thief> thieves;
+    public Boutique boutique = new Boutique("Pawnbroker");
+    public static int day = 0;
 
-    //arry of thieves
-    public Thief[] thieves;
+    public KardemommeTown() {
 
-    //array of recidents
-    public Person[] recidents;
+        //this.recidents = new Person[]{new AuntSofie(), new OldTobias(), new PolicemanBastian()};
+        Person[] recidents = new Person[]{new OldTobias(), new AuntSofie(), new PolicemanBastian()};
+        Thief[] thieves = new Thief[]{new Thief("Kasper"), new Thief("Jesper"), new Thief("Johnathan")};
 
-    //empty array of things in the shop
-    private String[] listOfItems;
-
-    public HashMap<Thief, Person> visits;
-
-    public Boutique pawnbroker;
-
-    //random generator
-    private static Random random = new Random();
-
+        this.recidents = new ArrayList<Person>(Arrays.asList(recidents));
+        this.thieves = new ArrayList<Thief>(Arrays.asList(thieves));
+        //this.thieves = new Thief[]{new Thief("Kasper"), new Thief("Jesper"), new Thief("Johnathan")};
+    }
 
     public static void main(String[] args) {
 
@@ -29,82 +26,60 @@ public class KardemommeTown {
 
         town.setup();
 
-        town.simulate();
+        town.simulate(7);
 
     }
 
-    public void simulate() {
+    public void simulate(int days) {
 
         //print status
         System.out.println("\n First dawn ... \n");
-        for (int i = 0; i < this.citizens.length; i++) {
-            System.out.println(this.citizens[i]);
+        for (int i = 0; i < this.thieves.size(); i++) {
+            System.out.println(this.thieves.get(i));
         }
 
-        //number of days to loot
-        int lootDays = 7;
+        for (int i = 0; i < this.recidents.size(); i++) {
+            System.out.println(this.recidents.get(i));
+        }
 
         //a week goes by of looting
-        for (int days = 0; days < lootDays; days++) {
-            System.out.println("Day no. " + days + "\n");
+        for (int n = 0; n <= days; n++) {
+            System.out.println("Day no. " + (n + 1) + "\n");
+            Collections.shuffle(thieves);
+            Collections.shuffle(recidents);
 
-
-            //Every night, the thieves visit a random house (thieves 0,1,2, recidents 3,4,5)
-            //this nights looting order
-
-            System.out.println(thieves[0]);
-
-            int rand = random.nextInt(3);
-            Thief firstThief = this.thieves[rand % 3];
-            Thief secondThief = this.thieves[(rand + 1) % 3];
-            Thief thirdThief = this.thieves[(rand + 2) % 3];
-
-            //Random thieves steals from random residents
-
+            for (int i = 0; i < recidents.size(); i++) {
+                if (thieves.get(i).canPlay()) {
+                    recidents.get(i).steal(thieves.get(i));
+                }
+                System.out.println(recidents.get(i));
+                System.out.println(thieves.get(i));
+            }
+            this.day++;
         }
-
+/*
         System.out.println("\n A new dawn ... \n");
         for (int i = 0; i < citizens.length; i++) {
             System.out.println(this.citizens[i].getName() + " " + citizens[i].getBelongings());
-        }
+        }*/
 
     }
 
     public void setup() {
 
-        //citizens in Kardemomme Town
-        Thief kasper = new Thief("Kasper");
-        Thief jesper = new Thief("Jesper");
-        Thief johnathan = new Thief("Johnathan");
-        AuntSofie aunty = new AuntSofie("Aunt Sofie");
-        OldTobias oldy = new OldTobias("Old Tobias");
-        PolicemanBastian copper = new PolicemanBastian("Policeman Bastian");
+        ArrayList<String> items = this.boutique.getBoutiquetItems();
 
-        //array of citizens
-        Person[] citizens = {kasper, jesper, johnathan, aunty, oldy, copper};
-        this.citizens = citizens;
-
-        //array of thieves
-        Thief[] thieves = {kasper, jesper, johnathan};
-        this.thieves = thieves;
-
-        //array of recidents
-        Person[] recidents = {aunty, oldy, copper};
-        this.recidents = recidents;
-
-        //shop with goods
-        this.pawnbroker = new Boutique("Pawnbroker");
-
-        //list of things in the shop
-        this.listOfItems = this.pawnbroker.getBoutiquetItems();
+        ArrayList<Person> citizens = new ArrayList();
+        citizens.addAll(this.thieves);
+        citizens.addAll(this.recidents);
 
         //distribute goods
-        for (int item = 0; item < listOfItems.length; item++) {
-            citizens[random.nextInt(6)].addBelongings(listOfItems[item]);
+        for (int i = 0; i < items.size(); i++) {
+            citizens.get(i % citizens.size()).getBelongings().add(items.get(i));
         }
     }
 
-    public void randomVisits() {
+    /*public void randomVisits() {
 
         int firstThief = random.nextInt(thieves.length);
 
@@ -120,7 +95,8 @@ public class KardemommeTown {
 
 
     }
+
     public Boutique getPawnbroker() {
         return pawnbroker;
-    }
+    }*/
 }

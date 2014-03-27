@@ -1,25 +1,28 @@
+import java.util.Iterator;
 import java.util.Random;
 
-/**
- * Created by baunbaun on 20/03/14.
- */
 public class AuntSofie extends Person {
 
-    public AuntSofie(String name){
-        super(name);
+    public AuntSofie() {
+        super("aunt Sofie");
     }
-    public String steal() {
 
-        String loot = "dust";
-        String[] thingsToSteal = KardemommeTown.pawnbroker.getBoutiquetItems();
+    public void steal(Person thief) {
 
-        Random random = new Random();
+        Random rand = new Random();
 
-        while (!this.getBelongings().contains(loot)) {
-            loot = thingsToSteal[random.nextInt(thingsToSteal.length)];
+        if (0 == rand.nextInt(3)) {
+            System.out.println("It's hammer time!!!! " + thief.getName());
+            ((Thief) thief).setInjury(3);
+        } else {
+            Iterator<String> iter = this.getBelongings().iterator();
+
+            if (iter.hasNext()) {
+                String loot = iter.next();
+                getBelongings().remove(loot);
+                thief.getBelongings().add(loot);
+
+            }
         }
-        this.removeBelonging(loot);
-        System.out.println("loot Aunty: " + loot);
-        return loot;
     }
 }
