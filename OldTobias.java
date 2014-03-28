@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.Iterator;
 
 public class OldTobias extends Person {
@@ -5,7 +6,6 @@ public class OldTobias extends Person {
     public OldTobias() {
         super("Old Tobias");
     }
-
     public void steal(Person thief) {
 
         Iterator<String> iter = this.getBelongings().iterator();
@@ -15,5 +15,8 @@ public class OldTobias extends Person {
             getBelongings().remove(loot);
             thief.getBelongings().add(loot);
         }
+    }
+    public void giveItems(HashSet<String> items){
+         this.getBelongings().addAll(items);
     }
 }

@@ -15,6 +15,7 @@ public class PolicemanBastian extends Person {
             System.out.println("Caught by cop !!! mr. " + thief.getName());
 
             this.belongings.addAll(thief.getBelongings());
+
             thief.getBelongings().clear();
         } else {
 

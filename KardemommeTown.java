@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -5,14 +6,25 @@ import java.util.Collections;
 public class KardemommeTown {
 
     public ArrayList<Person> residents;
+    public Person[] test;
+
+    public Person[] getTest() {
+        return test;
+    }
+
     public ArrayList<Thief> thieves;
     public Boutique boutique = new Boutique();
     public static int day = 1;
+    public String[] gift;
 
     public KardemommeTown() {
 
-        Person[] residents = new Person[]{new OldTobias(), new AuntSofie(), new PolicemanBastian()};
+        Person oldy = new OldTobias();
+
+        //Person[] residents = new Person[]{oldy, new AuntSofie(), new PolicemanBastian()};
+        this.test = new Person[]{oldy, new AuntSofie(), new PolicemanBastian()};
         Thief[] thieves = new Thief[]{new Thief("Kasper"), new Thief("Jesper"), new Thief("Johnathan")};
+
 
         //from array to array list
         this.residents = new ArrayList<Person>(Arrays.asList(residents));
@@ -63,5 +75,8 @@ public class KardemommeTown {
             }
             KardemommeTown.day++;
         }
+    }
+    public ArrayList<Person> getResidents(){
+        return this.residents;
     }
 }
