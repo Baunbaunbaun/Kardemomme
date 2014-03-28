@@ -1,6 +1,3 @@
-/**
- * Created by baunbaun on 20/03/14.
- */
 public class Thief extends Person {
 
     public int injuryUntil = 0;
@@ -9,47 +6,28 @@ public class Thief extends Person {
         super(name);
     }
 
-    public String steal() {
-        return null;
-    }
-    public boolean canPlay(){
-        return KardemommeTown.day >= this.injuryUntil;
-    }
-    public void setInjury(int days){
-        this.injuryUntil = days + KardemommeTown.day;
-    }
+    //is thief hurt or not by aunt Sofie
+    public boolean canPlay() {
 
-    /*public void setCanStealOrNot(boolean canStealOrNot) {
-        this.canStealOrNot = canStealOrNot;
-    }
-
-    public boolean getCanStealOrNot() {
-
-        if (this.injury != 0) {
-            this.injury--;
-            if (this.injury == 0) {
-                this.injury = 4;
-                canStealOrNot = true;
-            }
+        if (KardemommeTown.day > this.injuryUntil) {
+            this.setInjury(0);
+            return true;
+        } else {
+            return false;
         }
-        return this.canStealOrNot;
-    }*/
-
-    public void caughtByCop(Person cop) {
-
-        while (this.getBelongings().size() != 0) {
-            cop.getBelongings().add(this.steal());
-            System.out.println("caught!");
-        }
-        //take all thieves items
-        this.getBelongings().clear();
     }
-    public void steal(Person otherThief){
 
+    //if caught by aunt Sofie
+    public void setInjury(int days) {
+        this.injuryUntil = days == 0 ? 0 : (days + KardemommeTown.day);
+    }
+
+    //required from super class
+    public void steal(Person thief) {
     }
 
     @Override
     public String toString() {
-        return ("Name: " + this.getName() + "\n Belongings: " + getBelongings() + "\n");
+        return ("Name: " + this.getName() + "\n InjuryUntil: " + injuryUntil + "\n Belongings: " + getBelongings() + "\n");
     }
 }

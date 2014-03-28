@@ -11,9 +11,9 @@ public class AuntSofie extends Person {
 
         Random rand = new Random();
 
-        if (0 == rand.nextInt(3)) {
-            System.out.println("It's hammer time!!!! " + thief.getName());
-            ((Thief) thief).setInjury(3);
+        if (0 == rand.nextInt(2)) {
+            System.out.println("It's hammer time!!!! mr. " + thief.getName());
+            ((Thief)thief).setInjury(3);
         } else {
             Iterator<String> iter = this.getBelongings().iterator();
 
@@ -21,7 +21,6 @@ public class AuntSofie extends Person {
                 String loot = iter.next();
                 getBelongings().remove(loot);
                 thief.getBelongings().add(loot);
-
             }
         }
     }

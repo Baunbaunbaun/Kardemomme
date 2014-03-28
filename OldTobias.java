@@ -2,7 +2,6 @@ import java.util.Iterator;
 
 public class OldTobias extends Person {
 
-
     public OldTobias() {
         super("Old Tobias");
     }

@@ -7,7 +7,7 @@ public class Boutique {
     private ArrayList<String> items;
 
 
-    public Boutique(String name) {
+    public Boutique() {
 
         String[] items =
                 {
@@ -31,9 +31,10 @@ public class Boutique {
                         "playstation 3"
                 };
 
-        this.items = new ArrayList(Arrays.asList(items));
+        this.items = new ArrayList<String>(Arrays.asList(items));
     }
 
+    //returns arraylist with boutique items shuffled
     public ArrayList<String> getBoutiquetItems() {
         Collections.shuffle(this.items);
         return this.items;

@@ -1,4 +1,3 @@
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -13,11 +12,10 @@ public class PolicemanBastian extends Person {
         Random rand = new Random();
 
         if (0 == rand.nextInt(3)) {
-            System.out.println("Caught by cop !!! " + thief.getName());
+            System.out.println("Caught by cop !!! mr. " + thief.getName());
 
             this.belongings.addAll(thief.getBelongings());
             thief.getBelongings().clear();
-
         } else {
 
             Iterator<String> iter = this.getBelongings().iterator();
@@ -29,24 +27,6 @@ public class PolicemanBastian extends Person {
 
             }
         }
-
-
-
-
-
     }
-/*
-        String loot = "dust";
-        String[] thingsToSteal = KardemommeTown.pawnbroker.getBoutiquetItems();
-
-        Random random = new Random();
-
-        while (!this.getBelongings().contains(loot)) {
-            loot = thingsToSteal[random.nextInt(thingsToSteal.length)];
-        }
-        this.removeBelonging(loot);
-        System.out.println("loot Cop: " + loot);
-        return loot;
-    }*/
 }
 
