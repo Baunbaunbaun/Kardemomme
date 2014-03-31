@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -6,25 +5,15 @@ import java.util.Collections;
 public class KardemommeTown {
 
     public ArrayList<Person> residents;
-    public Person[] test;
-
-    public Person[] getTest() {
-        return test;
-    }
-
     public ArrayList<Thief> thieves;
     public Boutique boutique = new Boutique();
     public static int day = 1;
-    public String[] gift;
+    public static KardemommeTown town = new KardemommeTown();
 
     public KardemommeTown() {
 
-        Person oldy = new OldTobias();
-
-        //Person[] residents = new Person[]{oldy, new AuntSofie(), new PolicemanBastian()};
-        this.test = new Person[]{oldy, new AuntSofie(), new PolicemanBastian()};
-        Thief[] thieves = new Thief[]{new Thief("Kasper"), new Thief("Jesper"), new Thief("Johnathan")};
-
+        Person[] residents = new Person[]{new OldTobias(), new AuntSofie(), new PolicemanBastian(town)};
+        Thief[] thieves = new Thief[]{new Thief("Johnathan"), new Thief("Jesper"), new Thief("Kasper")};
 
         //from array to array list
         this.residents = new ArrayList<Person>(Arrays.asList(residents));
@@ -32,8 +21,6 @@ public class KardemommeTown {
     }
 
     public static void main(String[] args) {
-
-        KardemommeTown town = new KardemommeTown();
 
         town.setup();
         //enter number of days of looting
@@ -57,26 +44,30 @@ public class KardemommeTown {
     public void simulate(int days) {
 
         //print status pr. day
-        System.out.println("Number of people in the town: " + (this.thieves.size()+this.residents.size()));
+        System.out.println("Number of people in the town: " + (this.thieves.size() + this.residents.size()));
         System.out.println("Days of rampage: " + days + "\n");
 
         // x days goes by of looting
         for (int n = 1; n <= days; n++) {
             System.out.println("Day no. " + n + "  ---------------------------------------------------------\n");
-            Collections.shuffle(thieves);
-            Collections.shuffle(residents);
+            Collections.shuffle(this.thieves);
+            Collections.shuffle(this.residents);
 
-            for (int i = 0; i < residents.size(); i++) {
-                if (thieves.get(i).canPlay()) {
-                    residents.get(i).steal(thieves.get(i));
+            for (int i = 0; i < this.residents.size(); i++) {
+                if (this.thieves.get(i).canPlay()) {
+                    this.residents.get(i).steal(this.thieves.get(i));
                 }
-                System.out.println(residents.get(i));
-                System.out.println(thieves.get(i));
+                System.out.println(this.residents.get(i));
+            }
+            for (Thief t :
+                    this.thieves) {
+                System.out.println(t);
             }
             KardemommeTown.day++;
         }
     }
-    public ArrayList<Person> getResidents(){
-        return this.residents;
+
+    public Person getResident(int number) {
+        return residents.get(number);
     }
 }

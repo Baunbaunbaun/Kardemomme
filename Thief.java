@@ -28,6 +28,6 @@ public class Thief extends Person {
 
     @Override
     public String toString() {
-        return ("Name: " + this.getName() + "\n InjuryUntil: " + injuryUntil + "\n Belongings: " + getBelongings() + "\n");
+        return ("Name: " + this.getName() + "\n Injured until day no. " + injuryUntil + "\n Belongings: " + getBelongings() + "\n");
     }
 }
