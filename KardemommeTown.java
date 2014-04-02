@@ -4,16 +4,24 @@ import java.util.Collections;
 
 public class KardemommeTown {
 
-    public ArrayList<Person> residents;
-    public ArrayList<Thief> thieves;
-    public Boutique boutique = new Boutique();
-    public static int day = 1;
-    public static KardemommeTown town = new KardemommeTown();
+    private ArrayList<Person> residents;
+    private ArrayList<Thief> thieves;
+    private Boutique boutique = new Boutique();
+
+    private int day = 1;
 
     public KardemommeTown() {
 
-        Person[] residents = new Person[]{new OldTobias(), new AuntSofie(), new PolicemanBastian(town)};
-        Thief[] thieves = new Thief[]{new Thief("Johnathan"), new Thief("Jesper"), new Thief("Kasper")};
+        Person[] residents = new Person[]{
+                new OldTobias(),
+                new AuntSofie(),
+                new PolicemanBastian(this)
+        };
+        Thief[] thieves = new Thief[]{
+                new Thief(this, "Johnathan"),
+                new Thief(this, "Jesper"),
+                new Thief(this, "Kasper")
+        };
 
         //from array to array list
         this.residents = new ArrayList<Person>(Arrays.asList(residents));
@@ -22,8 +30,8 @@ public class KardemommeTown {
 
     public static void main(String[] args) {
 
+        KardemommeTown town = new KardemommeTown();
         town.setup();
-        //enter number of days of looting
         town.simulate(7);
     }
 
@@ -63,11 +71,16 @@ public class KardemommeTown {
                     this.thieves) {
                 System.out.println(t);
             }
-            KardemommeTown.day++;
+            this.day++;
         }
     }
 
     public Person getResident(int number) {
         return residents.get(number);
     }
+
+    public int getDay() {
+        return day;
+    }
+
 }
